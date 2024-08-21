@@ -30,13 +30,27 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @PutMapping("/update/passport") 
-    public void updatePassportPhoto(Long matricNo, MultipartFile passportPhoto) throws IOException {
 
-        byte[] passportPhotoBytes = passportPhoto.getBytes();
+    @PutMapping("/update/passport")
+    public ResponseEntity<?> updatePassportPhoto(
+        Long matricNo,
+        MultipartFile passportPhoto ) {
+        
+        try{
+            byte[] passportPhotoBytes = passportPhoto.getBytes();
 
-        studentService.updatePassportPhoto(matricNo, passportPhotoBytes);
+
+            studentService.updatePassportPhoto(
+                matricNo, 
+                passportPhotoBytes);
+                
+                return ResponseEntity.ok("Passport updated successfully");
+
+        } catch (IOException e) { 
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update photo");
+        }
     }
+
 
     @PutMapping("/update/basic-info")
     public void updateBasicInfo(
@@ -89,8 +103,8 @@ public class StudentController {
     }
 
     @PutMapping("/update/school-info")
-    public void updateSchoolInfo(Long matricNo, String School) {
-        studentService.updateSchoolInfo(matricNo, School);
+    public void updateSchoolInfo(Long matricNo, String school) {
+        studentService.updateSchoolInfo(matricNo, school);
     }
 
     @PostMapping("/add/course")

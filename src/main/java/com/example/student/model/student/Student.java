@@ -67,7 +67,7 @@ public class Student{
 
     private String permanentHomeAddreess;
 
-    private String phoneNumber;
+    private String phoneNumber = "Not set";
 
     private String email;
 
@@ -106,42 +106,6 @@ public class Student{
     @OneToMany(mappedBy = "student")
     @JsonIgnore
     private Set<Results> results;
-
-
-    public Student(
-        String title,
-        String firstName,
-        String middleName,
-        String surname,
-        MaritalEnum maritalStatus,
-        String maidenName,
-        ReligionEnum religion,
-        LocalDate dateOfBirth,
-        String nationality,
-        String state,
-        String localGovtAreaOfOrigin,
-        String permanentHomeAddreess,
-        String phoneNumber,
-        String email,
-        String nextOfKin,
-        String kinPhoneNumber,
-        String kinAddress,
-        String sponsor,
-        String sponsorPhoneNumber,
-        String sponsorAddress,
-        byte[] passportphoto,
-        String School,
-        InstitutionEnum institution,
-        byte[] birthCertificate,
-        byte[] jambResult,
-        byte[] oLevel,
-        byte[] referenceLetter,
-        byte[] medicalReport
-    
-    ) {}
-    
-
-    
 
 
     

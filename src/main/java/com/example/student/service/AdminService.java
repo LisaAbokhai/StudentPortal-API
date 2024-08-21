@@ -62,6 +62,7 @@ public class AdminService {
         admissionRepository.save(admission);
 
         Student student = new Student();
+        
         student.setTitle(admission.getTitle());
         student.setFirstName(admission.getFirstName());
         student.setMiddleName(admission.getMiddleName());
@@ -74,6 +75,7 @@ public class AdminService {
         student.setDateOfBirth(admission.getDateOfBirth());
         student.setLocalGovtAreaOfOrigin(admission.getLocalGovtAreaOfOrigin());
         student.setPermanentHomeAddreess(admission.getPermanentHomeAddreess());
+        student.setPhoneNumber(admission.getPhoneNumber());
         student.setEmail(admission.getEmail());
         student.setProgramme(admission.getProgramme());
         
