@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.Set;
 
 import com.example.student.model.teacher.Results;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,9 +45,9 @@ public class Student{
 
     private String title;
 
-    private String firstname;
+    private String firstName;
 
-    private String middlename;
+    private String middleName;
 
     private String surname;
 
@@ -84,39 +85,33 @@ public class Student{
 
     private String sponsorAddress = "Not Set";
 
-    private byte[] passport = null;
+    private byte[] passport = new byte[0];
 
     private String School = "Not Set";
 
     private InstitutionEnum institution = InstitutionEnum.OTHER;
 
     
-    private byte[] birthCertificate = null;
+    private byte[] birthCertificate = new byte[0];
 
-    private byte[] jambAdmission = null;
+    private byte[] jambResult = new byte[0];
 
-    private byte[] jambResult = null;
+    private byte[] oLevel = new byte[0];
 
-    private byte[] oLevel = null;
+    private byte[] referenceLetter = new byte[0];
 
-    private byte[] referenceLetter = null;
+    private byte[] medicalReport = new byte[0];
 
-    private byte[] originCertificate = null;
-
-    private byte[] testimonal = null;
-
-    private byte[] medicalReport = null;
-
-    private byte[] admissionLetter = null;
 
     @OneToMany(mappedBy = "student")
+    @JsonIgnore
     private Set<Results> results;
 
 
     public Student(
         String title,
-        String firstname,
-        String middlename,
+        String firstName,
+        String middleName,
         String surname,
         MaritalEnum maritalStatus,
         String maidenName,
@@ -138,14 +133,10 @@ public class Student{
         String School,
         InstitutionEnum institution,
         byte[] birthCertificate,
-        byte[] jambAdmission,
         byte[] jambResult,
         byte[] oLevel,
         byte[] referenceLetter,
-        byte[] originCertificate,
-        byte[] testimonal,
-        byte[] medicalReport,
-        byte[] admissionLetter
+        byte[] medicalReport
     
     ) {}
     

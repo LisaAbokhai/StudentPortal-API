@@ -34,7 +34,7 @@ public class ResultUpload {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String filePath;
+    private byte[] filePath;
 
     @ManyToOne
     @JoinColumn(name = "teacher_name", referencedColumnName = "name")

@@ -58,11 +58,15 @@ public class ResultsService {
         }
     }
 
-    public void logUpload(String courseCode, String comment, String teacherName, MultipartFile file) {
+    public void logUpload(String courseCode, String comment, String teacherName, MultipartFile file) throws IOException {
         ResultUpload resultUpload = new ResultUpload();
+        byte[] fileBytes = file.getBytes();
+
+
         resultUpload.setCourseid(courseCode);
         resultUpload.setResultComment(comment);
-        resultUpload.setFilePath(file.getOriginalFilename());
+
+        resultUpload.setFilePath(fileBytes);
         resultUpload.setResultDate(LocalDate.now());
         resultUpload.setName(teacherName);
 

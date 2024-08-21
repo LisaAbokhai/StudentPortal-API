@@ -63,8 +63,8 @@ public class AdminService {
 
         Student student = new Student();
         student.setTitle(admission.getTitle());
-        student.setFirstname(admission.getFirstName());
-        student.setMiddlename(admission.getMiddleName());
+        student.setFirstName(admission.getFirstName());
+        student.setMiddleName(admission.getMiddleName());
         student.setSurname(admission.getSurname());
         student.setMaritalStatus(admission.getMaritalStatus());
         student.setMaidenName(admission.getMaidenName());

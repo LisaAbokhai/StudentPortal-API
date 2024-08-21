@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.student.DTO.ResultsDTO;
 import com.example.student.model.student.Courses;
 import com.example.student.model.student.Student;
 import com.example.student.model.teacher.ResultId;
@@ -58,22 +59,14 @@ public class StudentService {
     public void updateDocuments (Long matricNo, 
                                     byte[] olevelResult,
                                     byte[] jambResult,
-                                    byte[] jambAdmission,
                                     byte[] referenceLetter,
-                                    byte[] originCertificate,
-                                    byte[] testimonal,
                                     byte[] medicalReport,
-                                    byte[] birthCertificate,
-                                    byte[] admissionLetter
+                                    byte[] birthCertificate
                                     ) {
         Student student = studentRepository.findByMatricNo(matricNo);
         student.setOLevel(olevelResult);
         student.setJambResult(jambResult);
-        student.setJambAdmission(jambAdmission);
         student.setReferenceLetter(referenceLetter);
-        student.setOriginCertificate(originCertificate);
-        student.setTestimonal(testimonal);
-        student.setAdmissionLetter(admissionLetter);
         student.setBirthCertificate(birthCertificate);
         student.setMedicalReport(medicalReport);
         studentRepository.save(student);
@@ -111,18 +104,34 @@ public class StudentService {
         resultsRepository.deleteById(resultId);
     }
 
-    public List<Courses> viewCourses(Long matricNo) {
+    public List<String> viewCourses(Long matricNo) {
         List<Results> results = resultsRepository.findByStudentMatricNo(matricNo);
-        List<Courses> courses = new ArrayList<>();
+        List<String> courseNames = new ArrayList<>();
         for (Results result : results) {
-            courses.add(result.getCourse());
+            Courses course = result.getCourse(); // Get the Courses object from the result
+            if (course != null) {
+                courseNames.add(course.getCourseName()); // Add the course name to the list
+            }    
         }
-        return courses;
-        
-    }
 
-    public List<Results> viewResults(Long matricNo) {
-        return resultsRepository.findByStudentMatricNo(matricNo);
+        return courseNames;
+    }
+    
+
+    public List<ResultsDTO> viewResults(Long matricNo) {
+
+        List<Results> results = resultsRepository.findByStudentMatricNo(matricNo);
+        List<ResultsDTO> resultsDTO = new ArrayList<>();
+
+        for (Results result : results) {
+            Courses course = result.getCourse();
+            if (course != null) {
+                ResultsDTO resultDTO = new ResultsDTO(course.getCourseCode(), result.getGrade());
+                resultsDTO.add(resultDTO);
+            }
+        }
+
+        return resultsDTO;
     }
 
 }

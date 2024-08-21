@@ -1,5 +1,6 @@
 package com.example.student.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.student.model.student.Student;
 import com.example.student.service.ResultsService;
 import com.example.student.service.TeacherService;
 
@@ -29,7 +29,7 @@ public class TeacherController {
     }
 
     @GetMapping("/retrieve/students/{courseCode}")
-    public List<Student> getStudentsByCourseCode(@PathVariable String courseCode) {
+    public List<String> getStudentsByCourseCode(@PathVariable String courseCode) {
         return teacherService.getStudentsByCourseCode(courseCode);
     }
 
@@ -40,7 +40,7 @@ public class TeacherController {
 
 
     @PutMapping("/log/results")
-    public void logResults(String courseCode, String comment, String teacherName, MultipartFile file) {
+    public void logResults(String courseCode, String comment, String teacherName, MultipartFile file) throws IOException {
         resultsService.logUpload(courseCode, comment, teacherName, file);
     }
 

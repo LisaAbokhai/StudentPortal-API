@@ -13,6 +13,6 @@ public interface ResultsRepository extends JpaRepository<Results, ResultId> {
 
     List<Results> findByStudentMatricNo(Long matricNo);
 
-    List<Results> findByCourseNum(String courseNum);
+    List<Results> findByCourse_CourseCode(String courseCode);
     
 } 
