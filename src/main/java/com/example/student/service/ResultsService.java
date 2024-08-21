@@ -36,19 +36,32 @@ public class ResultsService {
     public void updateGrades(MultipartFile file, String courseCode) {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
             String line;
+            boolean isFirstLine = true; 
             while ((line = reader.readLine()) != null) {
+                if (isFirstLine) {
+                    isFirstLine = false; // Skip header line
+                    continue;
+                }
+    
+                if (line.trim().isEmpty()) {
+                    continue; 
+                }
+    
                 String[] values = line.split(",");
-                Long matricNo = Long.parseLong(values[0]); // First value: matricNo
-                int grade = Integer.parseInt(values[2]); // Third value: grade
-
+                if (values.length < 3) {
+                    throw new IllegalArgumentException("Invalid line format: " + line);
+                }
+    
+                Long matricNo = Long.parseLong(values[0].trim()); // matricNo
+                int grade = Integer.parseInt(values[2].trim()); // grade
+    
                 ResultId resultId = new ResultId(matricNo, courseCode);
-
+    
                 Results result = resultsRepository.findById(resultId)
                                                   .orElseThrow(() -> new IllegalArgumentException("Student not found: " + matricNo));
-
+    
                 // Update the grade
                 result.setGrade(grade);
-
                 resultsRepository.save(result);
             }
         } catch (IOException e) {
